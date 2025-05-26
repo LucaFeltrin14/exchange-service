@@ -5,16 +5,7 @@ pipeline {
         NAME = "lucafeltrin14/${env.SERVICE}"
     }
     stages {
-        stage('Dependecies') {
-            steps {
-                build job: 'exchange', wait: true
-            }
-        }
-        stage('Build') { 
-            steps {
-                sh 'mvn -B -DskipTests clean package'
-            }
-        }      
+  
         stage('Build & Push Image') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'dockerhub-credential', usernameVariable: 'USERNAME', passwordVariable: 'TOKEN')]) {
